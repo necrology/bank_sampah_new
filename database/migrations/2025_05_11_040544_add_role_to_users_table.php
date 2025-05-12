@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nasabah', function (Blueprint $table) {
-            $table->integer('id_nasabah', true);
-            $table->string('nama');
-            $table->text('alamat')->default(null);
-            $table->string('nomor_telepon')->default(null);
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role')->default('user'); // misalnya: 'admin' atau 'user'
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nasabah');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

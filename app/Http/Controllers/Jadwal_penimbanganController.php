@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal_penimbangan;
+use App\Models\Jadwal_periode;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class Jadwal_penimbanganController extends Controller
 {
@@ -65,5 +67,30 @@ class Jadwal_penimbanganController extends Controller
         $jadwal->save();
 
         return response()->json(['message' => 'Data berhasil diperbarui', 'data' => $jadwal], 200);
+    }
+
+    // Pendaftaran Jadwal Penimbangan
+    public function getJadwalPendaftaran(Request $request)
+    {
+
+        $id_nasabah = $request->query('id_nasabah');
+
+        $results = Jadwal_penimbangan::select('*')
+            ->where('id_nasabah', $id_nasabah)
+            ->get();
+
+        return $results;
+    }
+
+    public function fetchJadwalPeriode()
+    {
+        $now = Carbon::now();
+
+        $results = Jadwal_periode::selectRaw("id_periode, tanggal_periode")
+            ->whereMonth('tanggal_periode', $now->month)
+            ->whereYear('tanggal_periode', $now->year)
+            ->get();
+
+        return $results;
     }
 }

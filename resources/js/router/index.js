@@ -1,14 +1,23 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from "../components/Dashboard.vue";
-import Sampah from "../components/Sampah.vue";
-import Nasabah from "../components/Nasabah.vue";
-import JadwalPenimbangan from "../components/JadwalPenimbangan.vue";
-import Penimbangan from "../components/Penimbangan.vue";
+//Petugas
+import Dashboard from "../components/petugas/Dashboard.vue";
+import Sampah from "../components/petugas/Sampah.vue";
+import Nasabah from "../components/petugas/Nasabah.vue";
+import JadwalPenimbangan from "../components/petugas/JadwalPenimbangan.vue";
+import JadwalPeriode from "../components/petugas/JadwalPeriode.vue";
+import Penimbangan from "../components/petugas/Penimbangan.vue";
+
+//Nasabah
+import DashboardNasabah from "../components/nasabah/DashboardNasabah.vue";
+import PendaftaranJadwalPenimbangan from "../components/nasabah/PendaftaranJadwalPenimbangan.vue";
+import SampahNasabah from "../components/nasabah/SampahNasabah.vue";
+import PenimbanganNasabah from "../components/nasabah/PenimbanganNasabah.vue";
+import ProfileNasabah from "../components/nasabah/ProfileNasabah.vue";
 
 const routes = [
     {
         path: "/home",
-        name: "dashboard",
+        name: "dashboardPetugas",
         component: Dashboard,
         meta: {
             title: "Dashboard",
@@ -36,10 +45,55 @@ const routes = [
                 },
             },
             {
+                path: "jadwalPeriode",
+                component: JadwalPeriode,
+                meta: {
+                    title: "Jadwal Periode",
+                },
+            },
+            {
                 path: "penimbangan",
                 component: Penimbangan,
                 meta: {
                     title: "Penimbangan",
+                },
+            },
+        ],
+    },
+    {
+        path: "/homeNasabah",
+        name: "dashboardNasabah",
+        component: DashboardNasabah,
+        meta: {
+            title: "Dashboard Nasabah",
+        },
+        children: [
+            {
+                path: "pendaftaranJadwalPenimbangan",
+                component: PendaftaranJadwalPenimbangan,
+                meta: {
+                    title: "Pendaftaran Jadwal Penimbangan",
+                },
+            },
+            {
+                path: "sampahNasabah",
+                component: SampahNasabah,
+                meta: {
+                    title: "Data Sampah",
+                },
+            },
+            {
+                path: "penimbanganNasabah",
+                component: PenimbanganNasabah,
+                meta: {
+                    title: "Data Penimbangan",
+                },
+            },
+            {
+                path: "profileNasabah",
+                component: ProfileNasabah,
+                meta: {
+                    title: "Data Profile & Saldo Nasabah",
                 },
             },
         ],

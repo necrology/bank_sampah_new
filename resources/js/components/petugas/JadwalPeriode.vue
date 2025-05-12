@@ -1,6 +1,6 @@
 <template>
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Nasabah</h1>
+    <h1 class="h3 mb-2 text-gray-800">Jadwal Periode</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h6 class="mt-2 font-weight-bold text-primary">
-                        Tabel Data Nasabah
+                        Tabel Data Jadwal Periode
                     </h6>
                 </div>
                 <div class="col-sm-6 d-flex justify-content-end">
@@ -30,7 +30,7 @@
                         <input
                             type="text"
                             class="form-control"
-                            placeholder="Cari berdasarkan nama, alamat, atau nomor telepon..."
+                            placeholder="Cari berdasarkan tanggal periode..."
                             v-model="searchQuery"
                             @input="filterData"
                         />
@@ -73,38 +73,36 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>No Telp</th>
+                            <th>ID Periode</th>
+                            <th>Tanggal Periode</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-if="filteredNasabah.length > 0">
+                        <template v-if="filteredJadwal.length > 0">
                             <tr
-                                v-for="(nasabah, index) in paginatedData"
-                                :key="nasabah.id_nasabah"
+                                v-for="(jadwal, index) in paginatedData"
+                                :key="jadwal.id_periode"
                             >
                                 <td>
                                     {{
                                         (currentPage - 1) * perPage + index + 1
                                     }}
                                 </td>
-                                <td>{{ nasabah.nama }}</td>
-                                <td>{{ nasabah.alamat }}</td>
-                                <td>{{ nasabah.nomor_telepon }}</td>
+                                <td>{{ jadwal.id_periode }}</td>
+                                <td>
+                                    {{ formatDate(jadwal.tanggal_periode) }}
+                                </td>
                                 <td>
                                     <button
-                                        @click="editNasabah(nasabah)"
+                                        @click="editJadwal(jadwal)"
                                         class="btn btn-warning btn-sm"
                                     >
                                         <i class="fas fa-edit fa-sm"></i>
                                     </button>
                                     &nbsp;
                                     <button
-                                        @click="
-                                            deleteNasabah(nasabah.id_nasabah)
-                                        "
+                                        @click="deleteJadwal(jadwal.id_periode)"
                                         class="btn btn-danger btn-sm"
                                     >
                                         <i class="fas fa-trash fa-sm"></i>
@@ -114,7 +112,7 @@
                         </template>
                         <template v-else>
                             <tr>
-                                <td colspan="5" class="text-center py-4">
+                                <td colspan="4" class="text-center py-4">
                                     <template v-if="searchQuery">
                                         <i
                                             class="fas fa-search fa-2x mb-2 text-muted"
@@ -135,7 +133,7 @@
                                             class="fas fa-database fa-2x mb-2 text-muted"
                                         ></i>
                                         <p class="mb-0">
-                                            Tidak ada data nasabah yang tersedia
+                                            Tidak ada data jadwal yang tersedia
                                         </p>
                                     </template>
                                 </td>
@@ -153,10 +151,10 @@
                         {{
                             Math.min(
                                 currentPage * perPage,
-                                filteredNasabah.length
+                                filteredJadwal.length
                             )
                         }}
-                        dari {{ filteredNasabah.length }} data
+                        dari {{ filteredJadwal.length }} data
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -213,16 +211,16 @@
     <!-- Modal Tambah -->
     <div
         class="modal fade"
-        id="nasabahModal"
+        id="jadwalModal"
         tabindex="-1"
-        aria-labelledby="nasabahModalLabel"
+        aria-labelledby="jadwalModalLabel"
         aria-hidden="true"
     >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="nasabahModalLabel">
-                        Tambah Data Nasabah
+                    <h5 class="modal-title" id="jadwalModalLabel">
+                        Tambah Jadwal Periode
                     </h5>
                     <button
                         type="button"
@@ -235,43 +233,28 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="addNasabah">
+                    <form @submit.prevent="addJadwal">
                         <div class="mb-3">
-                            <label for="nama" class="form-label">Nama</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="nama"
-                                v-model="newNasabah.nama"
-                                required
-                                placeholder="Masukkan nama nasabah"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="alamat" class="form-label"
-                                >Alamat</label
-                            >
-                            <textarea
-                                class="form-control"
-                                id="alamat"
-                                v-model="newNasabah.alamat"
-                                required
-                                placeholder="Masukkan alamat nasabah"
-                                rows="3"
-                            ></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="nomor_telepon" class="form-label"
-                                >No Telp</label
+                            <label for="tanggal_periode" class="form-label"
+                                >Tanggal Periode</label
                             >
                             <input
-                                type="text"
+                                type="date"
                                 class="form-control"
-                                id="nomor_telepon"
-                                v-model="newNasabah.nomor_telepon"
+                                id="tanggal_periode"
+                                v-model="v$.newJadwal.tanggal_periode.$model"
+                                :class="{
+                                    'is-invalid':
+                                        v$.newJadwal.tanggal_periode.$error,
+                                }"
                                 required
-                                placeholder="Masukkan nomor telepon"
                             />
+                            <div
+                                v-if="v$.newJadwal.tanggal_periode.$error"
+                                class="invalid-feedback"
+                            >
+                                Tanggal periode harus diisi
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button
@@ -282,7 +265,7 @@
                                 Batal
                             </button>
                             <button type="submit" class="btn btn-primary">
-                                Simpan Data
+                                Simpan Periode
                             </button>
                         </div>
                     </form>
@@ -294,16 +277,16 @@
     <!-- Modal Edit -->
     <div
         class="modal fade"
-        id="editNasabahModal"
+        id="editJadwalModal"
         tabindex="-1"
-        aria-labelledby="editNasabahModalLabel"
+        aria-labelledby="editJadwalModalLabel"
         aria-hidden="true"
     >
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editNasabahModalLabel">
-                        Edit Data Nasabah
+                    <h5 class="modal-title" id="editJadwalModalLabel">
+                        Edit Jadwal Periode
                     </h5>
                     <button
                         type="button"
@@ -316,45 +299,31 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="updateNasabah">
+                    <form @submit.prevent="updateJadwal">
                         <div class="mb-3">
-                            <label for="editNama" class="form-label"
-                                >Nama</label
+                            <label for="editTanggal_periode" class="form-label"
+                                >Tanggal Periode</label
                             >
                             <input
-                                type="text"
+                                type="date"
                                 class="form-control"
-                                id="editNama"
-                                v-model="editNasabahData.nama"
+                                id="editTanggal_periode"
+                                v-model="
+                                    v$.editJadwalData.tanggal_periode.$model
+                                "
+                                :class="{
+                                    'is-invalid':
+                                        v$.editJadwalData.tanggal_periode
+                                            .$error,
+                                }"
                                 required
-                                placeholder="Masukkan nama nasabah"
                             />
-                        </div>
-                        <div class="mb-3">
-                            <label for="editAlamat" class="form-label"
-                                >Alamat</label
+                            <div
+                                v-if="v$.editJadwalData.tanggal_periode.$error"
+                                class="invalid-feedback"
                             >
-                            <textarea
-                                class="form-control"
-                                id="editAlamat"
-                                v-model="editNasabahData.alamat"
-                                required
-                                placeholder="Masukkan alamat nasabah"
-                                rows="3"
-                            ></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="EditNomor_telepon" class="form-label"
-                                >No Telp</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="EditNomor_telepon"
-                                v-model="editNasabahData.nomor_telepon"
-                                required
-                                placeholder="Masukkan nomor telepon"
-                            />
+                                Tanggal periode harus diisi
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button
@@ -365,7 +334,7 @@
                                 Batal
                             </button>
                             <button type="submit" class="btn btn-primary">
-                                Update Data
+                                Update Periode
                             </button>
                         </div>
                     </form>
@@ -378,22 +347,24 @@
 <script>
 import axios from "axios";
 import { Modal } from "bootstrap";
+import { format, parseISO } from "date-fns";
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 
 export default {
+    setup() {
+        return { v$: useVuelidate() };
+    },
     data() {
         return {
-            nasabah: [],
-            filteredNasabah: [],
-            newNasabah: {
-                nama: "",
-                alamat: "",
-                nomor_telepon: "",
+            jadwal: [],
+            filteredJadwal: [],
+            newJadwal: {
+                tanggal_periode: "",
             },
-            editNasabahData: {
-                id: null,
-                nama: "",
-                alamat: "",
-                nomor_telepon: "",
+            editJadwalData: {
+                id_periode: null,
+                tanggal_periode: "",
             },
             searchQuery: "",
             currentPage: 1,
@@ -401,14 +372,24 @@ export default {
             maxVisiblePages: 5,
         };
     },
+    validations() {
+        return {
+            newJadwal: {
+                tanggal_periode: { required },
+            },
+            editJadwalData: {
+                tanggal_periode: { required },
+            },
+        };
+    },
     computed: {
         totalPages() {
-            return Math.ceil(this.filteredNasabah.length / this.perPage);
+            return Math.ceil(this.filteredJadwal.length / this.perPage);
         },
         paginatedData() {
             const start = (this.currentPage - 1) * this.perPage;
             const end = start + this.perPage;
-            return this.filteredNasabah.slice(start, end);
+            return this.filteredJadwal.slice(start, end);
         },
         visiblePages() {
             const range = [];
@@ -431,39 +412,45 @@ export default {
         },
     },
     mounted() {
-        this.fetchNasabah();
+        this.fetchJadwal();
     },
     methods: {
-        async fetchNasabah() {
+        async fetchJadwal() {
             try {
                 const response = await axios.get(
-                    "http://localhost:8000/api/getNasabah"
+                    "http://localhost:8000/api/getJadwalPeriode"
                 );
-                this.nasabah = response.data;
-                this.filteredNasabah = [...this.nasabah];
-                this.$toast.success("Data nasabah berhasil dimuat");
+                this.jadwal = response.data;
+                this.filteredJadwal = [...this.jadwal];
+                this.$toast.success("Data jadwal periode berhasil dimuat");
             } catch (error) {
-                console.error("Error Fetching Nasabah: ", error);
-                this.$toast.error("Gagal memuat data nasabah");
+                console.error("Error Fetching Jadwal periode: ", error);
+                this.$toast.error("Gagal memuat data jadwal periode");
             }
         },
         filterData() {
             if (this.searchQuery) {
                 const query = this.searchQuery.toLowerCase();
-                this.filteredNasabah = this.nasabah.filter(
-                    (item) =>
-                        item.nama.toLowerCase().includes(query) ||
-                        item.alamat.toLowerCase().includes(query) ||
-                        item.nomor_telepon.toLowerCase().includes(query)
-                );
+                this.filteredJadwal = this.jadwal.filter((item) => {
+                    const formattedDate = this.formatDate(
+                        item.tanggal_periode
+                    ).toLowerCase();
+                    return (
+                        formattedDate.includes(query) ||
+                        item.id_periode.toString().includes(query)
+                    );
+                });
             } else {
-                this.filteredNasabah = [...this.nasabah];
+                this.filteredJadwal = [...this.jadwal];
             }
             this.currentPage = 1;
         },
         resetSearch() {
             this.searchQuery = "";
             this.filterData();
+        },
+        formatDate(tanggal_periode) {
+            return format(parseISO(tanggal_periode), "dd-MM-yyyy");
         },
         prevPage() {
             if (this.currentPage > 1) {
@@ -481,80 +468,74 @@ export default {
             }
         },
         showModal() {
-            this.newNasabah = {
-                nama: "",
-                alamat: "",
-                nomor_telepon: "",
+            this.newJadwal = {
+                tanggal_periode: "",
             };
-            const modal = new Modal(document.getElementById("nasabahModal"));
+            this.v$.$reset();
+            const modal = new Modal(document.getElementById("jadwalModal"));
             modal.show();
         },
-        async addNasabah() {
+        async addJadwal() {
             try {
                 await axios.post(
-                    "http://localhost:8000/api/addDataNasabah",
-                    this.newNasabah
+                    "http://localhost:8000/api/addDataJadwalPeriode",
+                    this.newJadwal
                 );
-                this.$toast.success("Data nasabah berhasil ditambahkan");
+                this.$toast.success("Jadwal periode berhasil ditambahkan");
                 this.closeModal();
-                this.fetchNasabah();
+                this.fetchJadwal();
             } catch (error) {
-                console.error("Error adding nasabah:", error);
-                this.$toast.error("Gagal menambahkan data nasabah");
+                console.error("Error adding jadwal:", error);
+                this.$toast.error("Gagal menambahkan jadwal periode");
             }
         },
-        async deleteNasabah(id) {
-            if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+        async deleteJadwal(id) {
+            if (confirm("Apakah Anda yakin ingin menghapus periode ini?")) {
                 try {
                     await axios.delete(
-                        `http://localhost:8000/api/deleteDataNasabah/${id}`
+                        `http://localhost:8000/api/deleteDataJadwalPeriode/${id}`
                     );
-                    this.$toast.success("Data nasabah berhasil dihapus");
-                    this.fetchNasabah();
+                    this.$toast.success("Jadwal periode berhasil dihapus");
+                    this.fetchJadwal();
                 } catch (error) {
                     console.error("Error deleting data:", error);
-                    this.$toast.error("Gagal menghapus data nasabah");
+                    this.$toast.error("Gagal menghapus jadwal periode");
                 }
             }
         },
-        editNasabah(nasabah) {
-            this.editNasabahData = {
-                id: nasabah.id_nasabah,
-                nama: nasabah.nama,
-                alamat: nasabah.alamat,
-                nomor_telepon: nasabah.nomor_telepon,
+        editJadwal(jadwal) {
+            this.editJadwalData = {
+                id_periode: jadwal.id_periode,
+                tanggal_periode: jadwal.tanggal_periode.split(" ")[0],
             };
-            const modal = new Modal(
-                document.getElementById("editNasabahModal")
-            );
+            this.v$.$reset();
+            const modal = new Modal(document.getElementById("editJadwalModal"));
             modal.show();
         },
-        async updateNasabah() {
+        async updateJadwal() {
             try {
                 await axios.put(
-                    `http://localhost:8000/api/updateDataNasabah/${this.editNasabahData.id}`,
+                    `http://localhost:8000/api/updateDataJadwalPeriode/${this.editJadwalData.id_periode}`,
                     {
-                        nama: this.editNasabahData.nama,
-                        alamat: this.editNasabahData.alamat,
-                        nomor_telepon: this.editNasabahData.nomor_telepon,
+                        tanggal_periode: this.editJadwalData.tanggal_periode,
                     }
                 );
-                this.$toast.success("Data nasabah berhasil diperbarui");
+                this.$toast.success("Jadwal periode berhasil diperbarui");
                 this.closeEditModal();
-                this.fetchNasabah();
+                this.fetchJadwal();
             } catch (error) {
                 console.error("Error updating data:", error);
-                this.$toast.error("Gagal memperbarui data nasabah");
+                this.$toast.error("Gagal memperbarui jadwal periode");
             }
         },
         closeModal() {
-            const modalElement = document.getElementById("nasabahModal");
+            const modalElement = document.getElementById("jadwalModal");
             const modal =
                 Modal.getInstance(modalElement) || new Modal(modalElement);
             modal.hide();
         },
         closeEditModal() {
-            const modalElement = document.getElementById("editNasabahModal");
+            const modalElement = document.getElementById("editJadwalModal");
             const modal =
                 Modal.getInstance(modalElement) || new Modal(modalElement);
             modal.hide();
@@ -564,6 +545,7 @@ export default {
 </script>
 
 <style scoped>
+/* Pagination Styles */
 .page-item.active .page-link {
     background-color: #4e73df;
     border-color: #4e73df;
@@ -574,10 +556,17 @@ export default {
 .page-item.disabled .page-link {
     color: #6c757d;
 }
+
+/* Table Styles */
 .table-responsive {
     min-height: 300px;
 }
 .text-muted {
     color: #6c757d !important;
+}
+
+/* Form Control Styles */
+.form-control {
+    height: auto;
 }
 </style>

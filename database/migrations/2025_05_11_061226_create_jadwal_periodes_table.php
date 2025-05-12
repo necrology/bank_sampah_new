@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nasabah', function (Blueprint $table) {
-            $table->integer('id_nasabah', true);
-            $table->string('nama');
-            $table->text('alamat')->default(null);
-            $table->string('nomor_telepon')->default(null);
+        Schema::create('jadwal_periode', function (Blueprint $table) {
+            $table->integer('id_periode', true);
+            $table->timestamp('tanggal_periode')->useCurrentOnUpdate()->useCurrent();
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nasabah');
+        Schema::dropIfExists('jadwal_periode');
     }
 };
