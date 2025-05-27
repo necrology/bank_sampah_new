@@ -94,7 +94,7 @@ export default {
         const fetchProfile = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:8000/api/getProfile",
+                    "http://202.10.47.115//api/getProfile",
                     {
                         params: {
                             id_nasabah: user.id_nasabah,

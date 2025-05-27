@@ -244,7 +244,7 @@ export default {
         async fetchSampah() {
             try {
                 const response = await axios.get(
-                    "http://localhost:8000/api/getSampah"
+                    "http://202.10.47.115//api/getSampah"
                 );
                 this.sampah = response.data;
                 this.filteredSampah = [...this.sampah];
@@ -303,7 +303,7 @@ export default {
         async addSampah() {
             try {
                 await axios.post(
-                    "http://localhost:8000/api/addDataSampah",
+                    "http://202.10.47.115//api/addDataSampah",
                     this.newSampah
                 );
                 this.$toast.success("Data sampah berhasil ditambahkan");
@@ -318,7 +318,7 @@ export default {
             if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
                 try {
                     await axios.delete(
-                        `http://localhost:8000/api/deleteDataSampah/${id}`
+                        `http://202.10.47.115//api/deleteDataSampah/${id}`
                     );
                     this.$toast.success("Data sampah berhasil dihapus");
                     this.fetchSampah();
@@ -340,7 +340,7 @@ export default {
         async updateSampah() {
             try {
                 await axios.put(
-                    `http://localhost:8000/api/updateDataSampah/${this.editSampahData.id}`,
+                    `http://202.10.47.115//api/updateDataSampah/${this.editSampahData.id}`,
                     {
                         jenis: this.editSampahData.jenis,
                         harga_per_kg: this.editSampahData.harga_per_kg,

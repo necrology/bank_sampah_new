@@ -198,12 +198,6 @@
                                     ></i>
                                     Profile
                                 </router-link>
-                                <!-- <a class="dropdown-item" href="#">
-                                    <i
-                                        class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"
-                                    ></i>
-                                    Profile
-                                </a> -->
                                 <div class="dropdown-divider"></div>
                                 <a
                                     class="dropdown-item"
@@ -605,7 +599,6 @@ import { useRoute } from "vue-router";
 import axios from "axios";
 import { Chart, registerables } from "chart.js";
 
-// Register all Chart.js components
 Chart.register(...registerables);
 
 export default {
@@ -614,9 +607,6 @@ export default {
     },
     data() {
         return {
-            userName: null,
-            penimbanganChart: null,
-            kategoriChart: null,
             dashboardData: {
                 nasabah: 0,
                 totalSampah: 0,
@@ -632,11 +622,13 @@ export default {
             error: null,
             errorKategori: null,
             errorLeaderboard: null,
-            maxBerat: 0, // Untuk menyimpan nilai maksimal berat untuk perhitungan persentase
+            maxBerat: 0,
+            penimbanganChart: null,
+            kategoriChart: null,
         };
     },
     async mounted() {
-        // Toggle the side navigation
+        // Initialize sidebar toggle
         $("#sidebarToggle, #sidebarToggleTop").on("click", function (e) {
             $("body").toggleClass("sidebar-toggled");
             $(".sidebar").toggleClass("toggled");
@@ -645,19 +637,12 @@ export default {
             }
         });
 
-        // Fetch dashboard data
-        await this.fetchDashboardData();
-        await this.fetchChartData();
-        await this.fetchKategoriData();
-        await this.fetchLeaderboardData();
-
-        // Initialize charts when component is mounted
-        this.initCharts();
+        // Initial dashboard load
+        await this.initializeDashboard();
     },
     setup() {
         const route = useRoute();
 
-        // Fungsi untuk memeriksa apakah path saat ini aktif
         const isActive = (path) => {
             return route.path === path;
         };
@@ -665,25 +650,42 @@ export default {
         return { isActive };
     },
     watch: {
-        // Watch for route changes
-        "$route.path"(newPath) {
-            if (newPath === "/home") {
-                this.handleRouteChange();
-            }
+        "$route.path": {
+            immediate: true,
+            async handler(newPath, oldPath) {
+                if (newPath === "/homeNasabah") {
+                    await this.initializeDashboard();
+                } else if (
+                    oldPath === "/homeNasabah" &&
+                    newPath !== "/homeNasabah"
+                ) {
+                    this.destroyCharts();
+                }
+            },
         },
     },
     methods: {
-        async handleRouteChange() {
-            // Destroy existing charts
+        async initializeDashboard() {
             this.destroyCharts();
 
-            // Fetch data and reinitialize charts
-            await this.fetchDashboardData();
-            await this.fetchChartData();
-            await this.fetchKategoriData();
-            await this.fetchLeaderboardData();
-            this.initCharts();
+            try {
+                // Load all data in parallel
+                await Promise.all([
+                    this.fetchDashboardData(),
+                    this.fetchChartData(),
+                    this.fetchKategoriData(),
+                    this.fetchLeaderboardData(),
+                ]);
+
+                // Initialize charts after data is loaded
+                this.$nextTick(() => {
+                    this.initCharts();
+                });
+            } catch (error) {
+                console.error("Error initializing dashboard:", error);
+            }
         },
+
         destroyCharts() {
             if (this.penimbanganChart) {
                 this.penimbanganChart.destroy();
@@ -694,6 +696,7 @@ export default {
                 this.kategoriChart = null;
             }
         },
+
         async fetchDashboardData() {
             try {
                 this.loading = true;
@@ -708,6 +711,7 @@ export default {
                 this.loading = false;
             }
         },
+
         async fetchChartData() {
             try {
                 const response = await axios.get(
@@ -719,6 +723,7 @@ export default {
                 this.error = "Gagal memuat data chart";
             }
         },
+
         async fetchKategoriData() {
             try {
                 this.loadingKategori = true;
@@ -734,6 +739,7 @@ export default {
                 this.loadingKategori = false;
             }
         },
+
         async fetchLeaderboardData() {
             try {
                 this.loadingLeaderboard = true;
@@ -743,7 +749,6 @@ export default {
                 );
                 this.leaderboardData = response.data;
 
-                // Hitung nilai maksimal berat untuk perhitungan persentase
                 if (this.leaderboardData.length > 0) {
                     this.maxBerat = Math.max(
                         ...this.leaderboardData.map((item) => item.total_berat)
@@ -756,50 +761,26 @@ export default {
                 this.loadingLeaderboard = false;
             }
         },
-        calculatePercentage(berat) {
-            if (this.maxBerat === 0) return 0;
-            return Math.round((berat / this.maxBerat) * 100);
-        },
-        getProgressBarClass(index) {
-            const classes = [
-                "bg-danger",
-                "bg-warning",
-                "",
-                "bg-info",
-                "bg-success",
-            ];
-            return classes[index % classes.length];
-        },
-        formatNumber(num) {
-            return num
-                ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-                : "0";
-        },
-        async logout() {
-            try {
-                await axios.post("/logout");
-                window.location.href = "/login"; // Redirect setelah logout
-            } catch (error) {
-                console.error("Logout failed", error);
-            }
-        },
-        initCharts() {
-            // Prepare chart data
-            const labels = this.chartData.map((item) => item.bulan);
-            const data = this.chartData.map((item) => item.total_berat);
 
-            // Chart Penimbangan (Area Chart)
-            const penimbanganCtx = document
-                .getElementById("chartPenimbangan")
-                .getContext("2d");
+        initCharts() {
+            // Check if canvas elements exist
+            if (!this.$refs.chartPenimbangan || !this.$refs.chartKategori) {
+                console.warn("Chart canvas elements not found");
+                return;
+            }
+
+            // Initialize Penimbangan Chart (Line Chart)
+            const penimbanganCtx = this.$refs.chartPenimbangan.getContext("2d");
             this.penimbanganChart = new Chart(penimbanganCtx, {
                 type: "line",
                 data: {
-                    labels: labels,
+                    labels: this.chartData.map((item) => item.bulan),
                     datasets: [
                         {
                             label: "Total Penimbangan (Kg)",
-                            data: data,
+                            data: this.chartData.map(
+                                (item) => item.total_berat
+                            ),
                             backgroundColor: "rgba(78, 115, 223, 0.05)",
                             borderColor: "rgba(78, 115, 223, 1)",
                             pointRadius: 3,
@@ -886,25 +867,17 @@ export default {
                 },
             });
 
-            // Prepare kategori chart data
-            const kategoriLabels = this.kategoriData.map(
-                (item) => item.kategori
-            );
-            const kategoriValues = this.kategoriData.map(
-                (item) => item.total_berat
-            );
-
-            // Chart Kategori (Doughnut Chart)
-            const kategoriCtx = document
-                .getElementById("chartKategori")
-                .getContext("2d");
+            // Initialize Kategori Chart (Doughnut Chart)
+            const kategoriCtx = this.$refs.chartKategori.getContext("2d");
             this.kategoriChart = new Chart(kategoriCtx, {
                 type: "doughnut",
                 data: {
-                    labels: kategoriLabels,
+                    labels: this.kategoriData.map((item) => item.kategori),
                     datasets: [
                         {
-                            data: kategoriValues,
+                            data: this.kategoriData.map(
+                                (item) => item.total_berat
+                            ),
                             backgroundColor: [
                                 "#4e73df",
                                 "#1cc88a",
@@ -979,16 +952,46 @@ export default {
                 },
             });
         },
+
+        calculatePercentage(berat) {
+            if (this.maxBerat === 0) return 0;
+            return Math.round((berat / this.maxBerat) * 100);
+        },
+
+        getProgressBarClass(index) {
+            const classes = [
+                "bg-danger",
+                "bg-warning",
+                "",
+                "bg-info",
+                "bg-success",
+            ];
+            return classes[index % classes.length];
+        },
+
+        formatNumber(num) {
+            return num
+                ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                : "0";
+        },
+
+        async logout() {
+            try {
+                await axios.post("/logout");
+                window.location.href = "/login";
+            } catch (error) {
+                console.error("Logout failed", error);
+            }
+        },
     },
+
     beforeUnmount() {
-        // Clean up charts when component is destroyed
         this.destroyCharts();
     },
 };
 </script>
 
 <style scoped>
-/* Add any custom styles here if needed */
 .chart-area {
     position: relative;
     height: 20rem;
