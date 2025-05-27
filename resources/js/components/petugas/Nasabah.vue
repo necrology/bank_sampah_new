@@ -441,7 +441,7 @@ export default {
         async fetchNasabah() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115//api/getNasabah"
+                    "http://202.10.47.115/api/getNasabah"
                 );
                 this.nasabah = response.data;
                 this.filteredNasabah = [...this.nasabah];
@@ -496,7 +496,7 @@ export default {
         async addNasabah() {
             try {
                 await axios.post(
-                    "http://202.10.47.115//api/addDataNasabah",
+                    "http://202.10.47.115/api/addDataNasabah",
                     this.newNasabah
                 );
                 this.$toast.success("Data nasabah berhasil ditambahkan");
@@ -511,7 +511,7 @@ export default {
             if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
                 try {
                     await axios.delete(
-                        `http://202.10.47.115//api/deleteDataNasabah/${id}`
+                        `http://202.10.47.115/api/deleteDataNasabah/${id}`
                     );
                     this.$toast.success("Data nasabah berhasil dihapus");
                     this.fetchNasabah();
@@ -536,7 +536,7 @@ export default {
         async updateNasabah() {
             try {
                 await axios.put(
-                    `http://202.10.47.115//api/updateDataNasabah/${this.editNasabahData.id}`,
+                    `http://202.10.47.115/api/updateDataNasabah/${this.editNasabahData.id}`,
                     {
                         nama: this.editNasabahData.nama,
                         alamat: this.editNasabahData.alamat,

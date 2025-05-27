@@ -538,7 +538,7 @@ export default {
         async fetchNasabah() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115//api/getNasabah"
+                    "http://202.10.47.115/api/getNasabah"
                 );
                 this.nasabahOptions = response.data;
             } catch (error) {
@@ -549,7 +549,7 @@ export default {
         async fetchJadwal() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115//api/getJadwal"
+                    "http://202.10.47.115/api/getJadwal"
                 );
                 this.jadwal = response.data;
                 this.filteredJadwal = [...this.jadwal];
@@ -622,7 +622,7 @@ export default {
         async addJadwal() {
             try {
                 await axios.post(
-                    "http://202.10.47.115//api/addDataJadwal",
+                    "http://202.10.47.115/api/addDataJadwal",
                     this.newJadwal
                 );
                 this.$toast.success("Jadwal penimbangan berhasil ditambahkan");
@@ -637,7 +637,7 @@ export default {
             if (confirm("Apakah Anda yakin ingin menghapus jadwal ini?")) {
                 try {
                     await axios.delete(
-                        `http://202.10.47.115//api/deleteDataJadwal/${id}`
+                        `http://202.10.47.115/api/deleteDataJadwal/${id}`
                     );
                     this.$toast.success("Jadwal penimbangan berhasil dihapus");
                     this.fetchJadwal();
@@ -662,7 +662,7 @@ export default {
         async updateJadwal() {
             try {
                 await axios.put(
-                    `http://202.10.47.115//api/updateDataJadwal/${this.editJadwalData.id}`,
+                    `http://202.10.47.115/api/updateDataJadwal/${this.editJadwalData.id}`,
                     {
                         tanggal: this.editJadwalData.tanggal,
                         lokasi: this.editJadwalData.lokasi,

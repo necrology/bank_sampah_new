@@ -418,7 +418,7 @@ export default {
         async fetchJadwal() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115//api/getJadwalPeriode"
+                    "http://202.10.47.115/api/getJadwalPeriode"
                 );
                 this.jadwal = response.data;
                 this.filteredJadwal = [...this.jadwal];
@@ -478,7 +478,7 @@ export default {
         async addJadwal() {
             try {
                 await axios.post(
-                    "http://202.10.47.115//api/addDataJadwalPeriode",
+                    "http://202.10.47.115/api/addDataJadwalPeriode",
                     this.newJadwal
                 );
                 this.$toast.success("Jadwal periode berhasil ditambahkan");
@@ -493,7 +493,7 @@ export default {
             if (confirm("Apakah Anda yakin ingin menghapus periode ini?")) {
                 try {
                     await axios.delete(
-                        `http://202.10.47.115//api/deleteDataJadwalPeriode/${id}`
+                        `http://202.10.47.115/api/deleteDataJadwalPeriode/${id}`
                     );
                     this.$toast.success("Jadwal periode berhasil dihapus");
                     this.fetchJadwal();
@@ -515,7 +515,7 @@ export default {
         async updateJadwal() {
             try {
                 await axios.put(
-                    `http://202.10.47.115//api/updateDataJadwalPeriode/${this.editJadwalData.id_periode}`,
+                    `http://202.10.47.115/api/updateDataJadwalPeriode/${this.editJadwalData.id_periode}`,
                     {
                         tanggal_periode: this.editJadwalData.tanggal_periode,
                     }

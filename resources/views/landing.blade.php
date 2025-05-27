@@ -39,7 +39,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1">
-                        <a href="http://202.10.47.115//login" class="nav-link py-3 px-0 px-lg-3 rounded">Login</a>
+                        <a href="http://202.10.47.115/login" class="nav-link py-3 px-0 px-lg-3 rounded">Login</a>
                     </li>
                 </ul>
             </div>

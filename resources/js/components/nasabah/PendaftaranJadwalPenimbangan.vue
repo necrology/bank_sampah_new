@@ -571,7 +571,7 @@ export default {
             try {
                 this.isLoading = true;
                 const response = await axios.get(
-                    "http://202.10.47.115//api/fetchJadwalPeriode"
+                    "http://202.10.47.115/api/fetchJadwalPeriode"
                 );
 
                 if (response.data && Array.isArray(response.data)) {
@@ -602,7 +602,7 @@ export default {
             this.isLoading = true;
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115//api/getJadwalPendaftaran",
+                    "http://202.10.47.115/api/getJadwalPendaftaran",
                     {
                         params: {
                             id_nasabah: this.user.id_nasabah,
@@ -743,7 +743,7 @@ export default {
                 };
 
                 const response = await axios.post(
-                    "http://202.10.47.115//api/addDataJadwal",
+                    "http://202.10.47.115/api/addDataJadwal",
                     dataToSend,
                     {
                         headers: {
@@ -795,7 +795,7 @@ export default {
                 };
 
                 const response = await axios.put(
-                    `http://202.10.47.115//api/updateDataJadwal/${this.editForm.id_jadwal}`,
+                    `http://202.10.47.115/api/updateDataJadwal/${this.editForm.id_jadwal}`,
                     dataToSend,
                     {
                         headers: {
@@ -824,7 +824,7 @@ export default {
 
             try {
                 const response = await axios.delete(
-                    `http://202.10.47.115//api/deleteDataJadwal/${id}`,
+                    `http://202.10.47.115/api/deleteDataJadwal/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${this.user.token || ""}`,
