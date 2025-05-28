@@ -12,7 +12,7 @@
             >
                 <div class="sidebar-brand-icon">
                     <img
-                        src="/public/landing/assets/img/logo.png"
+                        src="//landing/assets/img/logo.png"
                         style="width: 50px; height: 50px"
                     />
                 </div>
@@ -174,7 +174,7 @@
                                 >
                                 <img
                                     class="img-profile rounded-circle"
-                                    src="/public/sbadmin2/img/undraw_profile.svg"
+                                    src="//sbadmin2/img/undraw_profile.svg"
                                 />
                             </a>
                             <!-- Dropdown - User Information -->
@@ -701,7 +701,7 @@ export default {
             try {
                 this.loading = true;
                 const response = await axios.get(
-                    "http://127.0.0.1:8000/api/dashboard1"
+                    "http://202.10.47.115:8000/api/dashboard1"
                 );
                 this.dashboardData = response.data;
             } catch (error) {
@@ -715,7 +715,7 @@ export default {
         async fetchChartData() {
             try {
                 const response = await axios.get(
-                    "http://127.0.0.1:8000/api/chart1"
+                    "http://202.10.47.115:8000/api/chart1"
                 );
                 this.chartData = response.data;
             } catch (error) {
@@ -729,7 +729,7 @@ export default {
                 this.loadingKategori = true;
                 this.errorKategori = null;
                 const response = await axios.get(
-                    "http://127.0.0.1:8000/api/chart2"
+                    "http://202.10.47.115:8000/api/chart2"
                 );
                 this.kategoriData = response.data;
             } catch (error) {
@@ -745,7 +745,7 @@ export default {
                 this.loadingLeaderboard = true;
                 this.errorLeaderboard = null;
                 const response = await axios.get(
-                    "http://127.0.0.1:8000/api/leaderboard"
+                    "http://202.10.47.115:8000/api/leaderboard"
                 );
                 this.leaderboardData = response.data;
 
