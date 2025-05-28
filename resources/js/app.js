@@ -5,7 +5,7 @@ import VueToast from "vue-toast-notification";
 
 // Import CSS dan JS
 import "/public/sbadmin2/css/sb-admin-2.min.css";
-import "/public/sbadmin2/vendor/fontawesome-free/css/all.min.css";
+// import "/public/sbadmin2/vendor/fontawesome-free/css/all.min.css";
 import "/public/sbadmin2/vendor/jquery/jquery.min.js";
 import "/public/sbadmin2/vendor/jquery/jquery.min.js";
 import "/public/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js";

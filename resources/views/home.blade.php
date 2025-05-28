@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="landing/assets/img/logo.png" />
+    <link rel="stylesheet" href="/sbadmin2/vendor/fontawesome-free/css/all.min.css">
     @if (app()->environment('local'))
     {{-- <script type="module" src="http://202.10.47.115:5173/@vite/client"></script> --}}
     <script type="module" src="http://202.10.47.115:5173/resources/js/app.js"></script>
