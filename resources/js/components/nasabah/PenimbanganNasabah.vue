@@ -281,7 +281,7 @@ export default {
         async fetchSampah() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115/api/fetchSampah"
+                    "http://202.10.47.115:8000/api/fetchSampah"
                 );
                 this.sampahOptions = response.data;
             } catch (error) {
@@ -291,7 +291,7 @@ export default {
         async fetchJadwal() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115/api/fetchJadwal"
+                    "http://202.10.47.115:8000/api/fetchJadwal"
                 );
                 this.jadwalOptions = response.data;
             } catch (error) {
@@ -301,7 +301,7 @@ export default {
         async fetchPenimbangan() {
             try {
                 const response = await axios.get(
-                    "http://202.10.47.115/api/getPenimbanganNasabah",
+                    "http://202.10.47.115:8000/api/getPenimbanganNasabah",
                     {
                         params: {
                             id_nasabah: this.user.id_nasabah,
@@ -386,7 +386,7 @@ export default {
         async addPenimbangan() {
             try {
                 await axios.post(
-                    "http://202.10.47.115/api/addDataPenimbangan",
+                    "http://202.10.47.115:8000/api/addDataPenimbangan",
                     this.newPenimbangan
                 );
                 this.closeModal();
@@ -399,7 +399,7 @@ export default {
             if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
                 try {
                     await axios.delete(
-                        `http://202.10.47.115/api/deleteDataPenimbangan/${id}`
+                        `http://202.10.47.115:8000/api/deleteDataPenimbangan/${id}`
                     );
                     this.fetchPenimbangan();
                 } catch (error) {
@@ -423,7 +423,7 @@ export default {
         async updatePenimbangan() {
             try {
                 await axios.put(
-                    `http://202.10.47.115/api/updateDataPenimbangan/${this.editPenimbanganData.id}`,
+                    `http://202.10.47.115:8000/api/updateDataPenimbangan/${this.editPenimbanganData.id}`,
                     {
                         id_jadwal: this.editPenimbanganData.id_jadwal,
                         id_sampah: this.editPenimbanganData.id_sampah,
@@ -440,7 +440,7 @@ export default {
         async fetchSampahById() {
             try {
                 const response = await axios.post(
-                    "http://202.10.47.115/api/fetchSampahById",
+                    "http://202.10.47.115:8000/api/fetchSampahById",
                     this.newPenimbangan
                 );
                 this.sampahPerKg = response.data[0];
@@ -451,7 +451,7 @@ export default {
         async fetchSampahByIdEdit() {
             try {
                 const response = await axios.post(
-                    "http://202.10.47.115/api/fetchSampahById",
+                    "http://202.10.47.115:8000/api/fetchSampahById",
                     this.editPenimbanganData
                 );
                 this.sampahPerKg = response.data[0];
