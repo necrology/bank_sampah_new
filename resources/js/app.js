@@ -4,11 +4,11 @@ import router from "./router";
 import VueToast from "vue-toast-notification";
 
 // Import CSS dan JS
-import "http://202.10.47.115:8000/sbadmin2/css/sb-admin-2.min.css";
-import "http://202.10.47.115:8000/sbadmin2/vendor/fontawesome-free/css/all.min.css";
-import "http://202.10.47.115:8000/sbadmin2/vendor/jquery/jquery.min.js";
-import "http://202.10.47.115:8000/sbadmin2/vendor/jquery/jquery.min.js";
-import "http://202.10.47.115:8000/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js";
+import "/sbadmin2/css/sb-admin-2.min.css";
+import "/sbadmin2/vendor/fontawesome-free/css/all.min.css";
+import "/sbadmin2/vendor/jquery/jquery.min.js";
+import "/sbadmin2/vendor/jquery/jquery.min.js";
+import "/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js";
 import "vue-toast-notification/dist/theme-sugar.css";
 
 const appElement = document.getElementById("app");
