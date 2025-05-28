@@ -12,7 +12,7 @@
             >
                 <div class="sidebar-brand-icon">
                     <img
-                        src="/landing/assets/img/logo.png"
+                        src="http://202.10.47.115:8000/landing/assets/img/logo.png"
                         style="width: 50px; height: 50px"
                     />
                 </div>
@@ -144,7 +144,7 @@
                                 >
                                 <img
                                     class="img-profile rounded-circle"
-                                    src="/sbadmin2/img/undraw_profile.svg"
+                                    src="http://202.10.47.115:8000/sbadmin2/img/undraw_profile.svg"
                                 />
                             </a>
                             <!-- Dropdown - User Information -->
