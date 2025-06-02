@@ -14,7 +14,7 @@
                 <div class="col-sm-6 d-flex justify-content-end">
                     <button
                         @click="showModal"
-                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                        class="btn btn-sm btn-primary shadow-sm"
                     >
                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah
                         Data
@@ -247,9 +247,13 @@
                                 class="form-control"
                                 id="nama"
                                 v-model="newNasabah.nama"
+                                @input="validateName"
                                 required
-                                placeholder="Masukkan nama nasabah"
+                                placeholder="Masukkan nama nasabah (huruf saja)"
                             />
+                            <small class="text-danger" v-if="nameError">{{
+                                nameError
+                            }}</small>
                         </div>
                         <div class="mb-3">
                             <label for="alamat" class="form-label"
@@ -273,9 +277,13 @@
                                 class="form-control"
                                 id="nomor_telepon"
                                 v-model="newNasabah.nomor_telepon"
+                                @input="validatePhone"
                                 required
-                                placeholder="Masukkan nomor telepon"
+                                placeholder="Masukkan nomor telepon (angka saja)"
                             />
+                            <small class="text-danger" v-if="phoneError">{{
+                                phoneError
+                            }}</small>
                         </div>
                         <div class="modal-footer">
                             <button
@@ -285,7 +293,11 @@
                             >
                                 Batal
                             </button>
-                            <button type="submit" class="btn btn-primary">
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                :disabled="nameError || phoneError"
+                            >
                                 Simpan Data
                             </button>
                         </div>
@@ -330,9 +342,13 @@
                                 class="form-control"
                                 id="editNama"
                                 v-model="editNasabahData.nama"
+                                @input="validateEditName"
                                 required
-                                placeholder="Masukkan nama nasabah"
+                                placeholder="Masukkan nama nasabah (huruf saja)"
                             />
+                            <small class="text-danger" v-if="editNameError">{{
+                                editNameError
+                            }}</small>
                         </div>
                         <div class="mb-3">
                             <label for="editAlamat" class="form-label"
@@ -356,9 +372,13 @@
                                 class="form-control"
                                 id="EditNomor_telepon"
                                 v-model="editNasabahData.nomor_telepon"
+                                @input="validateEditPhone"
                                 required
-                                placeholder="Masukkan nomor telepon"
+                                placeholder="Masukkan nomor telepon (angka saja)"
                             />
+                            <small class="text-danger" v-if="editPhoneError">{{
+                                editPhoneError
+                            }}</small>
                         </div>
                         <div class="modal-footer">
                             <button
@@ -368,7 +388,11 @@
                             >
                                 Batal
                             </button>
-                            <button type="submit" class="btn btn-primary">
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                :disabled="editNameError || editPhoneError"
+                            >
                                 Update Data
                             </button>
                         </div>
@@ -403,6 +427,10 @@ export default {
             currentPage: 1,
             perPage: 10,
             maxVisiblePages: 5,
+            nameError: "",
+            phoneError: "",
+            editNameError: "",
+            editPhoneError: "",
         };
     },
     computed: {
@@ -438,6 +466,39 @@ export default {
         this.fetchNasabah();
     },
     methods: {
+        validateName() {
+            const lettersOnly = /^[A-Za-z\s]*$/;
+            if (!lettersOnly.test(this.newNasabah.nama)) {
+                this.nameError = "Nama hanya boleh mengandung huruf";
+            } else {
+                this.nameError = "";
+            }
+        },
+        validatePhone() {
+            const numbersOnly = /^[0-9]*$/;
+            if (!numbersOnly.test(this.newNasabah.nomor_telepon)) {
+                this.phoneError = "Nomor telepon hanya boleh mengandung angka";
+            } else {
+                this.phoneError = "";
+            }
+        },
+        validateEditName() {
+            const lettersOnly = /^[A-Za-z\s]*$/;
+            if (!lettersOnly.test(this.editNasabahData.nama)) {
+                this.editNameError = "Nama hanya boleh mengandung huruf";
+            } else {
+                this.editNameError = "";
+            }
+        },
+        validateEditPhone() {
+            const numbersOnly = /^[0-9]*$/;
+            if (!numbersOnly.test(this.editNasabahData.nomor_telepon)) {
+                this.editPhoneError =
+                    "Nomor telepon hanya boleh mengandung angka";
+            } else {
+                this.editPhoneError = "";
+            }
+        },
         async fetchNasabah() {
             try {
                 const response = await axios.get(
@@ -490,10 +551,21 @@ export default {
                 alamat: "",
                 nomor_telepon: "",
             };
+            this.nameError = "";
+            this.phoneError = "";
             const modal = new Modal(document.getElementById("nasabahModal"));
             modal.show();
         },
         async addNasabah() {
+            // Validate again before submitting
+            this.validateName();
+            this.validatePhone();
+
+            if (this.nameError || this.phoneError) {
+                this.$toast.error("Harap perbaiki input yang salah");
+                return;
+            }
+
             try {
                 await axios.post(
                     "http://202.10.47.115:8000/api/addDataNasabah",
@@ -528,12 +600,23 @@ export default {
                 alamat: nasabah.alamat,
                 nomor_telepon: nasabah.nomor_telepon,
             };
+            this.editNameError = "";
+            this.editPhoneError = "";
             const modal = new Modal(
                 document.getElementById("editNasabahModal")
             );
             modal.show();
         },
         async updateNasabah() {
+            // Validate again before submitting
+            this.validateEditName();
+            this.validateEditPhone();
+
+            if (this.editNameError || this.editPhoneError) {
+                this.$toast.error("Harap perbaiki input yang salah");
+                return;
+            }
+
             try {
                 await axios.put(
                     `http://202.10.47.115:8000/api/updateDataNasabah/${this.editNasabahData.id}`,
