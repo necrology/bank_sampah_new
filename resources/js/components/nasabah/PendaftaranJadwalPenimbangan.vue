@@ -14,7 +14,7 @@
                 <div class="col-sm-6 d-flex justify-content-end">
                     <button
                         @click="showModal"
-                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                        class="btn btn-sm btn-primary shadow-sm"
                         :disabled="isLoading"
                     >
                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah
@@ -22,7 +22,7 @@
                     </button>
                     <button
                         @click="refreshData"
-                        class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm ml-2"
+                        class="btn btn-sm btn-primary shadow-sm ml-2"
                         :disabled="isLoading"
                     >
                         <i class="fas fa-sync fa-sm text-white-50"></i> Refresh

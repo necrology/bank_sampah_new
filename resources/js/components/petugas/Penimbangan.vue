@@ -14,7 +14,7 @@
                 <div class="col-sm-6 d-flex justify-content-end">
                     <button
                         @click="showModal"
-                        class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                        class="btn btn-sm btn-primary shadow-sm"
                     >
                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah
                         Data
