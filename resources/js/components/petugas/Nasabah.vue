@@ -1,8 +1,6 @@
 <template>
-    <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Nasabah</h1>
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
@@ -23,7 +21,6 @@
             </div>
         </div>
         <div class="card-body">
-            <!-- Search Field -->
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="input-group">
@@ -118,7 +115,7 @@
                         </template>
                         <template v-else>
                             <tr>
-                                <td colspan="5" class="text-center py-4">
+                                <td colspan="6" class="text-center py-4">
                                     <template v-if="searchQuery">
                                         <i
                                             class="fas fa-search fa-2x mb-2 text-muted"
@@ -149,7 +146,6 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
             <div class="row mt-3">
                 <div class="col-md-6">
                     <div class="dataTables_info">
@@ -214,7 +210,6 @@
         </div>
     </div>
 
-    <!-- Modal Tambah -->
     <div
         class="modal fade"
         id="nasabahModal"
@@ -296,7 +291,7 @@
                             <button
                                 type="submit"
                                 class="btn btn-primary"
-                                :disabled="nameError || phoneError"
+                                :disabled="!isAddFormValid"
                             >
                                 Simpan Data
                             </button>
@@ -307,7 +302,6 @@
         </div>
     </div>
 
-    <!-- Modal Edit -->
     <div
         class="modal fade"
         id="editNasabahModal"
@@ -391,7 +385,7 @@
                             <button
                                 type="submit"
                                 class="btn btn-primary"
-                                :disabled="editNameError || editPhoneError"
+                                :disabled="!isEditFormValid"
                             >
                                 Update Data
                             </button>
@@ -461,6 +455,26 @@ export default {
 
             return range;
         },
+        // Computed property untuk validasi form tambah nasabah
+        isAddFormValid() {
+            return (
+                this.newNasabah.nama.trim() !== "" &&
+                this.newNasabah.alamat.trim() !== "" &&
+                this.newNasabah.nomor_telepon.trim() !== "" &&
+                !this.nameError &&
+                !this.phoneError
+            );
+        },
+        // Computed property untuk validasi form edit nasabah
+        isEditFormValid() {
+            return (
+                this.editNasabahData.nama.trim() !== "" &&
+                this.editNasabahData.alamat.trim() !== "" &&
+                this.editNasabahData.nomor_telepon.trim() !== "" &&
+                !this.editNameError &&
+                !this.editPhoneError
+            );
+        },
     },
     mounted() {
         this.fetchNasabah();
@@ -468,7 +482,9 @@ export default {
     methods: {
         validateName() {
             const lettersOnly = /^[A-Za-z\s]*$/;
-            if (!lettersOnly.test(this.newNasabah.nama)) {
+            if (this.newNasabah.nama.trim() === "") {
+                this.nameError = "Nama tidak boleh kosong";
+            } else if (!lettersOnly.test(this.newNasabah.nama)) {
                 this.nameError = "Nama hanya boleh mengandung huruf";
             } else {
                 this.nameError = "";
@@ -476,7 +492,9 @@ export default {
         },
         validatePhone() {
             const numbersOnly = /^[0-9]*$/;
-            if (!numbersOnly.test(this.newNasabah.nomor_telepon)) {
+            if (this.newNasabah.nomor_telepon.trim() === "") {
+                this.phoneError = "Nomor telepon tidak boleh kosong";
+            } else if (!numbersOnly.test(this.newNasabah.nomor_telepon)) {
                 this.phoneError = "Nomor telepon hanya boleh mengandung angka";
             } else {
                 this.phoneError = "";
@@ -484,7 +502,9 @@ export default {
         },
         validateEditName() {
             const lettersOnly = /^[A-Za-z\s]*$/;
-            if (!lettersOnly.test(this.editNasabahData.nama)) {
+            if (this.editNasabahData.nama.trim() === "") {
+                this.editNameError = "Nama tidak boleh kosong";
+            } else if (!lettersOnly.test(this.editNasabahData.nama)) {
                 this.editNameError = "Nama hanya boleh mengandung huruf";
             } else {
                 this.editNameError = "";
@@ -492,7 +512,9 @@ export default {
         },
         validateEditPhone() {
             const numbersOnly = /^[0-9]*$/;
-            if (!numbersOnly.test(this.editNasabahData.nomor_telepon)) {
+            if (this.editNasabahData.nomor_telepon.trim() === "") {
+                this.editPhoneError = "Nomor telepon tidak boleh kosong";
+            } else if (!numbersOnly.test(this.editNasabahData.nomor_telepon)) {
                 this.editPhoneError =
                     "Nomor telepon hanya boleh mengandung angka";
             } else {
@@ -557,12 +579,14 @@ export default {
             modal.show();
         },
         async addNasabah() {
-            // Validate again before submitting
+            // Validate all fields including checking for empty
             this.validateName();
             this.validatePhone();
 
-            if (this.nameError || this.phoneError) {
-                this.$toast.error("Harap perbaiki input yang salah");
+            if (!this.isAddFormValid) {
+                this.$toast.error(
+                    "Harap lengkapi semua input yang diperlukan dengan benar"
+                );
                 return;
             }
 
@@ -608,12 +632,14 @@ export default {
             modal.show();
         },
         async updateNasabah() {
-            // Validate again before submitting
+            // Validate all fields including checking for empty
             this.validateEditName();
             this.validateEditPhone();
 
-            if (this.editNameError || this.editPhoneError) {
-                this.$toast.error("Harap perbaiki input yang salah");
+            if (!this.isEditFormValid) {
+                this.$toast.error(
+                    "Harap lengkapi semua input yang diperlukan dengan benar"
+                );
                 return;
             }
 
