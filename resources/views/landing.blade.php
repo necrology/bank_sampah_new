@@ -13,26 +13,20 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="landing/css/styles.css" rel="stylesheet" />
 </head>
 
 <body>
     <!-- Navigation-->
-    <nav
-        class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top"
-        id="mainNav">
+    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand">BANK SAMPAH</a>
-            <button
-                class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
@@ -49,14 +43,11 @@
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
-            <img
-                class="masthead-avatar mb-5"
-                src="landing/assets/img/logo.png"
-                alt="..."
+            <img class="masthead-avatar mb-5" src="landing/assets/img/logo.png" alt="..."
                 style="width: 300px;height: 300px;" />
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">
-                BANK SAMPAH BERSINAR
+                BANK SAMPAH MUKTI BERKAH
             </h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
@@ -79,8 +70,7 @@
     <section class="page-section bg-primary text-white mb-0" id="about">
         <div class="container">
             <!-- About Section Heading-->
-            <h2
-                class="page-section-heading text-center text-uppercase text-white">
+            <h2 class="page-section-heading text-center text-uppercase text-white">
                 About
             </h2>
             <!-- Icon Divider-->
@@ -135,28 +125,19 @@
     </div>
     <!-- Portfolio Modals-->
     <!-- Portfolio Modal 1-->
-    <div
-        class="portfolio-modal modal fade"
-        id="portfolioModal1"
-        tabindex="-1"
-        aria-labelledby="portfolioModal1"
+    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center pb-5">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2
-                                    class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
                                     Log Cabin
                                 </h2>
                                 <!-- Icon Divider-->
@@ -168,10 +149,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img
-                                    class="img-fluid rounded mb-5"
-                                    src="assets/img/portfolio/cabin.png"
-                                    alt="..." />
+                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cabin.png" alt="..." />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-4">
                                     Lorem ipsum dolor sit amet, consectetur
@@ -181,9 +159,7 @@
                                     asperiores, vitae? Reprehenderit soluta, eos
                                     quod consequuntur itaque. Nam.
                                 </p>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal">
+                                <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
                                 </button>
@@ -195,28 +171,19 @@
         </div>
     </div>
     <!-- Portfolio Modal 2-->
-    <div
-        class="portfolio-modal modal fade"
-        id="portfolioModal2"
-        tabindex="-1"
-        aria-labelledby="portfolioModal2"
+    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" aria-labelledby="portfolioModal2"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center pb-5">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2
-                                    class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
                                     Tasty Cake
                                 </h2>
                                 <!-- Icon Divider-->
@@ -228,10 +195,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img
-                                    class="img-fluid rounded mb-5"
-                                    src="assets/img/portfolio/cake.png"
-                                    alt="..." />
+                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/cake.png" alt="..." />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-4">
                                     Lorem ipsum dolor sit amet, consectetur
@@ -241,9 +205,7 @@
                                     asperiores, vitae? Reprehenderit soluta, eos
                                     quod consequuntur itaque. Nam.
                                 </p>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal">
+                                <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
                                 </button>
@@ -255,28 +217,19 @@
         </div>
     </div>
     <!-- Portfolio Modal 3-->
-    <div
-        class="portfolio-modal modal fade"
-        id="portfolioModal3"
-        tabindex="-1"
-        aria-labelledby="portfolioModal3"
+    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" aria-labelledby="portfolioModal3"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center pb-5">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2
-                                    class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
                                     Circus Tent
                                 </h2>
                                 <!-- Icon Divider-->
@@ -288,10 +241,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img
-                                    class="img-fluid rounded mb-5"
-                                    src="assets/img/portfolio/circus.png"
-                                    alt="..." />
+                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/circus.png" alt="..." />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-4">
                                     Lorem ipsum dolor sit amet, consectetur
@@ -301,9 +251,7 @@
                                     asperiores, vitae? Reprehenderit soluta, eos
                                     quod consequuntur itaque. Nam.
                                 </p>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal">
+                                <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
                                 </button>
@@ -315,28 +263,19 @@
         </div>
     </div>
     <!-- Portfolio Modal 4-->
-    <div
-        class="portfolio-modal modal fade"
-        id="portfolioModal4"
-        tabindex="-1"
-        aria-labelledby="portfolioModal4"
+    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" aria-labelledby="portfolioModal4"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center pb-5">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2
-                                    class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
                                     Controller
                                 </h2>
                                 <!-- Icon Divider-->
@@ -348,10 +287,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img
-                                    class="img-fluid rounded mb-5"
-                                    src="assets/img/portfolio/game.png"
-                                    alt="..." />
+                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/game.png" alt="..." />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-4">
                                     Lorem ipsum dolor sit amet, consectetur
@@ -361,9 +297,7 @@
                                     asperiores, vitae? Reprehenderit soluta, eos
                                     quod consequuntur itaque. Nam.
                                 </p>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal">
+                                <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
                                 </button>
@@ -375,28 +309,19 @@
         </div>
     </div>
     <!-- Portfolio Modal 5-->
-    <div
-        class="portfolio-modal modal fade"
-        id="portfolioModal5"
-        tabindex="-1"
-        aria-labelledby="portfolioModal5"
+    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" aria-labelledby="portfolioModal5"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center pb-5">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2
-                                    class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
                                     Locked Safe
                                 </h2>
                                 <!-- Icon Divider-->
@@ -408,10 +333,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img
-                                    class="img-fluid rounded mb-5"
-                                    src="assets/img/portfolio/safe.png"
-                                    alt="..." />
+                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/safe.png" alt="..." />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-4">
                                     Lorem ipsum dolor sit amet, consectetur
@@ -421,9 +343,7 @@
                                     asperiores, vitae? Reprehenderit soluta, eos
                                     quod consequuntur itaque. Nam.
                                 </p>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal">
+                                <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
                                 </button>
@@ -435,28 +355,19 @@
         </div>
     </div>
     <!-- Portfolio Modal 6-->
-    <div
-        class="portfolio-modal modal fade"
-        id="portfolioModal6"
-        tabindex="-1"
-        aria-labelledby="portfolioModal6"
+    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" aria-labelledby="portfolioModal6"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header border-0">
-                    <button
-                        class="btn-close"
-                        type="button"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center pb-5">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
                                 <!-- Portfolio Modal - Title-->
-                                <h2
-                                    class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
                                     Submarine
                                 </h2>
                                 <!-- Icon Divider-->
@@ -468,9 +379,7 @@
                                     <div class="divider-custom-line"></div>
                                 </div>
                                 <!-- Portfolio Modal - Image-->
-                                <img
-                                    class="img-fluid rounded mb-5"
-                                    src="assets/img/portfolio/submarine.png"
+                                <img class="img-fluid rounded mb-5" src="assets/img/portfolio/submarine.png"
                                     alt="..." />
                                 <!-- Portfolio Modal - Text-->
                                 <p class="mb-4">
@@ -481,9 +390,7 @@
                                     asperiores, vitae? Reprehenderit soluta, eos
                                     quod consequuntur itaque. Nam.
                                 </p>
-                                <button
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal">
+                                <button class="btn btn-primary" data-bs-dismiss="modal">
                                     <i class="fas fa-xmark fa-fw"></i>
                                     Close Window
                                 </button>
