@@ -72,6 +72,7 @@
                         <tr>
                             <th>No</th>
                             <th>Jenis</th>
+                            <th>Nama</th>
                             <th>Harga Per Kg</th>
                             <th>Aksi</th>
                         </tr>
@@ -88,6 +89,7 @@
                                     }}
                                 </td>
                                 <td>{{ sampahItem.jenis }}</td>
+                                <td>{{ sampahItem.nama_sampah }}</td>
                                 <td>
                                     {{
                                         formatCurrency(sampahItem.harga_per_kg)
@@ -237,14 +239,28 @@
                 <div class="modal-body">
                     <form @submit.prevent="addSampah">
                         <div class="mb-3">
-                            <label for="jenis" class="form-label"
+                            <label for="jenis_sampah" class="form-label"
                                 >Jenis Sampah</label
+                            >
+                            <v-select
+                                :options="jenisOptions"
+                                id="jenis"
+                                placeholder="Pilih Jenis Sampah"
+                                v-model="newSampah.jenis"
+                                label="label"
+                                :reduce="(option) => option.jenis"
+                                required
+                            ></v-select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jenis" class="form-label"
+                                >Nama Sampah</label
                             >
                             <input
                                 type="text"
                                 class="form-control"
-                                id="jenis"
-                                v-model="newSampah.jenis"
+                                id="nama_sampah"
+                                v-model="newSampah.nama_sampah"
                                 required
                                 placeholder="Masukkan jenis sampah"
                             />
@@ -310,13 +326,27 @@
                             <label for="editJenis" class="form-label"
                                 >Jenis Sampah</label
                             >
+                            <v-select
+                                :options="jenisOptions"
+                                id="jenis"
+                                placeholder="Pilih Jenis Sampah"
+                                v-model="editSampahData.jenis"
+                                label="label"
+                                :reduce="(option) => option.jenis"
+                                required
+                            ></v-select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNamaSampah" class="form-label"
+                                >Nama Sampah</label
+                            >
                             <input
                                 type="text"
                                 class="form-control"
-                                id="editJenis"
-                                v-model="editSampahData.jenis"
+                                id="namaSampah"
+                                v-model="editSampahData.nama_sampah"
                                 required
-                                placeholder="Masukkan jenis sampah"
+                                placeholder="Masukkan nama sampah"
                             />
                         </div>
                         <div class="mb-3">
@@ -353,21 +383,33 @@
 
 <script>
 import axios from "axios";
+import vSelect from "vue-select";
 import { Modal } from "bootstrap";
+import "vue-select/dist/vue-select.css";
 
 export default {
+    components: { vSelect },
     data() {
         return {
+            jenisOptions: [
+                { jenis: "Plastik", label: "Plastik" },
+                { jenis: "Kertas", label: "Kertas" },
+                { jenis: "Logam", label: "Logam" },
+                { jenis: "Kaca", label: "Kaca" },
+                { jenis: "Lain-lain", label: "Lain-lain" },
+            ],
             sampah: [],
             filteredSampah: [],
             newSampah: {
                 jenis: "",
                 harga_per_kg: "",
+                nama_sampah: "",
             },
             editSampahData: {
                 id: null,
                 jenis: "",
                 harga_per_kg: "",
+                nama_sampah: "",
             },
             searchQuery: "",
             currentPage: 1,
@@ -500,6 +542,7 @@ export default {
                 id: sampah.id_sampah,
                 jenis: sampah.jenis,
                 harga_per_kg: sampah.harga_per_kg,
+                nama_sampah: sampah.nama_sampah,
             };
             const modal = new Modal(document.getElementById("editSampahModal"));
             modal.show();
@@ -511,6 +554,7 @@ export default {
                     {
                         jenis: this.editSampahData.jenis,
                         harga_per_kg: this.editSampahData.harga_per_kg,
+                        nama_sampah: this.editSampahData.nama_sampah,
                     }
                 );
                 this.$toast.success("Data sampah berhasil diperbarui");

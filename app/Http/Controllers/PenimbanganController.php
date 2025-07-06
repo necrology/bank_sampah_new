@@ -31,7 +31,7 @@ class PenimbanganController extends Controller
 
     public function fetchSampah()
     {
-        $results = Sampah::selectRaw("CONCAT (jenis,' - Rp. ', harga_per_kg, ' /kg') as label, id_sampah, harga_per_kg")
+        $results = Sampah::selectRaw("CONCAT (jenis,' - ', nama_sampah ,' - Rp. ', harga_per_kg, ' /kg') as label, id_sampah, harga_per_kg")
             ->get();
         return $results;
     }

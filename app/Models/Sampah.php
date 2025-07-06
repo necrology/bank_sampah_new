@@ -10,7 +10,8 @@ class Sampah extends Model
 
     protected $fillable = [
         'jenis',
-        'harga_per_kg'
+        'harga_per_kg',
+        'nama_sampah'
     ];
 
     public $timestamps = false;

@@ -17,7 +17,8 @@ class SampahController extends Controller
     {
         $request->validate([
             'jenis' => 'required|string|max:255',
-            'harga_per_kg' => 'required|integer'
+            'harga_per_kg' => 'required|integer',
+            'nama_sampah' => 'required|string|max:255'
         ]);
 
         $result = Sampah::create($request->all());
@@ -42,6 +43,7 @@ class SampahController extends Controller
         // Validasi input
         $request->validate([
             'jenis' => 'required|string|max:255',
+            'nama_sampah' => 'required|string|max:255',
             'harga_per_kg' => 'required|numeric',
         ]);
 
@@ -55,8 +57,24 @@ class SampahController extends Controller
         // Update data
         $sampah->jenis = $request->jenis;
         $sampah->harga_per_kg = $request->harga_per_kg;
+        $sampah->nama_sampah = $request->nama_sampah;
         $sampah->save();
 
         return response()->json(['message' => 'Data berhasil diperbarui', 'data' => $sampah], 200);
+    }
+
+    public function getPenimbanganNasabah(Request $request)
+    {
+
+        $id_nasabah = $request->query('id_nasabah');
+
+        $results = Sampah::join('jadwal_penimbangan', 'jadwal_penimbangan.id_jadwal', '=', 'penimbangan.id_jadwal')
+            ->join('nasabah', 'nasabah.id_nasabah', '=', 'jadwal_penimbangan.id_nasabah')
+            ->join('sampah', 'sampah.id_sampah', '=', 'penimbangan.id_sampah')
+            ->select('penimbangan.id_penimbangan', 'penimbangan.tanggal_penimbangan', 'nasabah.nama as nasabah', 'sampah.jenis', 'penimbangan.berat', 'penimbangan.total', 'penimbangan.id_jadwal', 'penimbangan.id_sampah')
+            ->where('nasabah.id_nasabah', $id_nasabah)
+            ->get();
+
+        return $results;
     }
 }

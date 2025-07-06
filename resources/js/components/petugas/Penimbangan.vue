@@ -227,7 +227,7 @@
         aria-labelledby="penimbanganModalLabel"
         aria-hidden="true"
     >
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="penimbanganModalLabel">
@@ -254,7 +254,7 @@
                                 v-model="newPenimbangan.id_jadwal"
                                 label="label"
                                 :reduce="(option) => option.id_jadwal"
-                                :required
+                                required
                             ></v-select>
                         </div>
                         <div class="mb-3">
@@ -267,7 +267,7 @@
                                 v-model="newPenimbangan.id_sampah"
                                 label="label"
                                 :reduce="(option) => option.id_sampah"
-                                :required
+                                required
                             ></v-select>
                         </div>
                         <div class="mb-3">
@@ -347,7 +347,7 @@
                                 v-model="editPenimbanganData.id_jadwal"
                                 label="label"
                                 :reduce="(option) => option.id_jadwal"
-                                :required
+                                required
                             ></v-select>
                         </div>
                         <div class="mb-3">
@@ -360,7 +360,7 @@
                                 v-model="editPenimbanganData.id_sampah"
                                 label="label"
                                 :reduce="(option) => option.id_sampah"
-                                :required
+                                required
                             ></v-select>
                         </div>
                         <div class="mb-3">

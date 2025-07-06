@@ -15,6 +15,7 @@ return new class extends Migration
             $table->integer('id_sampah', true);
             $table->string('jenis');
             $table->float('harga_per_kg');
+            $table->string(column: 'nama_sampah');
         });
     }
 
