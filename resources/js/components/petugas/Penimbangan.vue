@@ -14,17 +14,10 @@
                 <div class="col-sm-6 d-flex justify-content-end">
                     <button
                         @click="showModal"
-                        class="btn btn-sm btn-primary shadow-sm mx-2"
+                        class="btn btn-sm btn-primary shadow-sm"
                     >
                         <i class="fas fa-plus fa-sm text-white-50"></i> Tambah
                         Data
-                    </button>
-                    <button
-                        @click="exportToExcel"
-                        class="btn btn-sm btn-success shadow-sm mr-2"
-                    >
-                        <i class="fas fa-file-excel fa-sm text-white-50"></i>
-                        Export Excel
                     </button>
                 </div>
             </div>
@@ -421,8 +414,6 @@ import vSelect from "vue-select";
 import { format } from "date-fns";
 import { Modal } from "bootstrap";
 import "vue-select/dist/vue-select.css";
-import * as XLSX from "xlsx";
-import { saveAs } from "file-saver";
 
 export default {
     components: { vSelect },
@@ -683,42 +674,6 @@ export default {
                         this.sampahPerKg.harga_per_kg;
                 }
             });
-        },
-        exportToExcel() {
-            const exportData = this.filteredPenimbangan.map((item, index) => ({
-                No: index + 1,
-                "Tanggal Penimbangan": this.formatDate(
-                    item.tanggal_penimbangan
-                ),
-                "Nama Nasabah": item.nasabah,
-                "Jenis Sampah": item.jenis,
-                "Berat (Kg)": item.berat,
-                "Total (Rp)": item.total,
-            }));
-
-            const worksheet = XLSX.utils.json_to_sheet(exportData);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(
-                workbook,
-                worksheet,
-                "Data Penimbangan"
-            );
-
-            const excelBuffer = XLSX.write(workbook, {
-                bookType: "xlsx",
-                type: "array",
-            });
-
-            const data = new Blob([excelBuffer], {
-                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            });
-
-            // Tambahkan tanggal ke nama file
-            const today = new Date();
-            const dateString = today.toISOString().split("T")[0]; // format YYYY-MM-DD
-            const fileName = `Data_Penimbangan_${dateString}.xlsx`;
-
-            saveAs(data, fileName);
         },
     },
 };
