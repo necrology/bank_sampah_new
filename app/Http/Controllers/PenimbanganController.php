@@ -15,7 +15,7 @@ class PenimbanganController extends Controller
         $results = Penimbangan::join('jadwal_penimbangan', 'jadwal_penimbangan.id_jadwal', '=', 'penimbangan.id_jadwal')
             ->join('nasabah', 'nasabah.id_nasabah', '=', 'jadwal_penimbangan.id_nasabah')
             ->join('sampah', 'sampah.id_sampah', '=', 'penimbangan.id_sampah')
-            ->select('penimbangan.id_penimbangan', 'penimbangan.tanggal_penimbangan', 'nasabah.nama as nasabah', 'sampah.jenis', 'penimbangan.berat', 'penimbangan.total', 'penimbangan.id_jadwal', 'penimbangan.id_sampah')
+            ->select('penimbangan.id_penimbangan', 'penimbangan.tanggal_penimbangan', 'nasabah.nama as nasabah', 'sampah.jenis', 'penimbangan.berat', 'penimbangan.total', 'penimbangan.id_jadwal', 'penimbangan.id_sampah', 'sampah.nama_sampah')
             ->get();
         return $results;
     }
@@ -113,7 +113,7 @@ class PenimbanganController extends Controller
         $results = Penimbangan::join('jadwal_penimbangan', 'jadwal_penimbangan.id_jadwal', '=', 'penimbangan.id_jadwal')
             ->join('nasabah', 'nasabah.id_nasabah', '=', 'jadwal_penimbangan.id_nasabah')
             ->join('sampah', 'sampah.id_sampah', '=', 'penimbangan.id_sampah')
-            ->select('penimbangan.id_penimbangan', 'penimbangan.tanggal_penimbangan', 'nasabah.nama as nasabah', 'sampah.jenis', 'penimbangan.berat', 'penimbangan.total', 'penimbangan.id_jadwal', 'penimbangan.id_sampah')
+            ->select('penimbangan.id_penimbangan', 'penimbangan.tanggal_penimbangan', 'nasabah.nama as nasabah', 'sampah.jenis', 'penimbangan.berat', 'penimbangan.total', 'penimbangan.id_jadwal', 'penimbangan.id_sampah', 'sampah.nama_sampah')
             ->where('nasabah.id_nasabah', $id_nasabah)
             ->get();
 

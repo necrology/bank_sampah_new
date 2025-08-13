@@ -86,7 +86,9 @@
                                     {{ formatDate(item.tanggal_penimbangan) }}
                                 </td>
                                 <td>{{ item.nasabah }}</td>
-                                <td>{{ item.jenis }}</td>
+                                <td>
+                                    {{ item.jenis }} - {{ item.nama_sampah }}
+                                </td>
                                 <td>{{ item.berat }}</td>
                                 <td>{{ formatCurrency(item.total) }}</td>
                             </tr>
